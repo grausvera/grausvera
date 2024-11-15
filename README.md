@@ -9,7 +9,7 @@
     <a href="https://instagram.com/graus.vera" target="blank" style='margin-right:3px'>
       <img align="center" src="https://cdn.jsdelivr.net/npm/simple-icons@3.0.1/icons/instagram.svg" alt="graus.vera" height="28px" width="28px" />
     </a>
-    <a href="https://twitter.com/grausvera" target="blank">
+    <a href="https://twitter.com/grausvera_" target="blank">
       <img align="center" src="https://cdn.jsdelivr.net/npm/simple-icons@3.0.1/icons/twitter.svg" alt="grausvera" height="28px" width="28px" />
     </a>
   </p>
