@@ -17,6 +17,16 @@
 </p>
 
 <table width="100%">
+  <tr>
+    <td>
+      <strong>
+        <a href="https://github.com/grausvera/wasi">Wasi</a>
+      </strong>
+      <br>
+      A personal Linux environment built from scratch around the terminal.
+      An evolving workspace designed through everyday use.
+    </td>
+  </tr>
 </table>
 
 <br>
