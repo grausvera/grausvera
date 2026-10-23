@@ -1,7 +1,4 @@
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="./assets/banner-dark.svg">
-  <img src="./assets/banner.svg" alt="grausvera — Código, dibujo y mundos por crear" width="100%">
-</picture>
+<img src="./assets/banner.svg" alt="grausvera" width="100%">
 
 ## Hola, soy grausvera
 
