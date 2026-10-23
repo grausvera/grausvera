@@ -21,6 +21,8 @@
 
 <br>
 
+<p align="center"><strong>Aquel niño que quería crear mundos sigue aquí</strong><br><sub>Esta vez, con más herramientas</sub></p>
+
 <p align="center">
   <picture>
     <source media="(prefers-reduced-motion: reduce) and (prefers-color-scheme: dark)" srcset="./assets/logo-dark.svg">
