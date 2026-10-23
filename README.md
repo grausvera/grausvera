@@ -4,20 +4,6 @@
 
 <p align="center">Me gusta crear cosas que empiezan con un «¿y si…?»<br>Un personaje, una herramienta o un mundo que todavía no existe</p>
 
-<br>
-
-<table>
-  <tr>
-    <th width="33%" align="left">Código</th>
-    <th width="33%" align="left">Dibujo</th>
-    <th width="33%" align="left">Mundos</th>
-  </tr>
-  <tr>
-    <td valign="top">Convertir ideas en algo que funciona</td>
-    <td valign="top">Dar forma a lo que imagino</td>
-    <td valign="top">Inventar historias que quiero hacer realidad</td>
-  </tr>
-</table>
 
 ## El mismo sueño, otras herramientas
 
@@ -27,9 +13,15 @@ Estudié Ingeniería de Sistemas y he trabajado en infraestructura tecnológica.
 
 ## Lo que está tomando forma
 
-**grausvera-web** es mi primer espacio para reunir esas ideas. Una web personal con un personaje que cuenta mi historia, una identidad dibujada a mano y un lugar para los proyectos que vendrán.
+### grausvera-web
 
-Está en desarrollo. Igual que este camino: todavía hay mucho por aprender y muchas cosas por crear.
+<sub>En desarrollo</sub>
+
+<img src="./assets/grausvera-web-preview.png" alt="Vista real de grausvera-web: una historia dibujada y la presentación del portafolio" width="100%">
+
+Un espacio propio donde el dibujo y el código se encuentran. Mi personaje cuenta su historia en una animación, mientras la web reúne los proyectos que van tomando forma.
+
+Identidad dibujada a mano, temas claro y oscuro, y un lugar para el software, el arte y las historias que vendrán.
 
 <br>
 
