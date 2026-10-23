@@ -13,15 +13,17 @@ Estudié Ingeniería de Sistemas y he trabajado en infraestructura tecnológica.
 
 ## Lo que está tomando forma
 
-### grausvera-web
-
-<sub>En desarrollo</sub>
-
-<img src="./assets/grausvera-web-preview.png" alt="Vista real de grausvera-web: una historia dibujada y la presentación del portafolio" width="100%">
-
-Un espacio propio donde el dibujo y el código se encuentran. Mi personaje cuenta su historia en una animación, mientras la web reúne los proyectos que van tomando forma.
-
-Identidad dibujada a mano, temas claro y oscuro, y un lugar para el software, el arte y las historias que vendrán.
+<table>
+  <tr>
+    <td width="300" valign="top">
+      <img src="./assets/grausvera-web-preview.png" alt="Vista de grausvera-web" width="260"><br><br>
+      <strong>grausvera-web</strong><br>
+      <sub>En desarrollo</sub><br><br>
+      Mi espacio para reunir código, dibujo<br>
+      e historias que empiezan a tomar forma
+    </td>
+  </tr>
+</table>
 
 <br>
 
