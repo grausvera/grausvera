@@ -15,12 +15,12 @@ Estudié Ingeniería de Sistemas y he trabajado en infraestructura tecnológica.
 
 <table>
   <tr>
-    <td width="300" valign="top">
-      <img src="./assets/grausvera-web-preview.png" alt="Vista de grausvera-web" width="260"><br><br>
+    <td width="320" valign="top">
+      <img src="./assets/grausvera-web-preview.png" alt="Portada de grausvera-web: el personaje y su marca" width="300"><br><br>
       <strong>grausvera-web</strong><br>
       <sub>En desarrollo</sub><br><br>
-      Mi espacio para reunir código, dibujo<br>
-      e historias que empiezan a tomar forma
+      Un espacio propio donde el dibujo,<br>
+      el código y mi historia se encuentran
     </td>
   </tr>
 </table>
