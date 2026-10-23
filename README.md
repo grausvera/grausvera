@@ -1,78 +1,25 @@
-<p align="center">
-  <img
-    src="./assets/banner.svg"
-    alt="grausvera"
-    width="100%"
-  >
-</p>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./assets/banner-dark.svg">
+  <img src="./assets/banner.svg" alt="grausvera — Código, dibujo y mundos por crear" width="100%">
+</picture>
 
-<br>
+## Hola, soy grausvera
 
-<p align="center">
-  <strong>Aprendo mientras construyo</strong>
-</p>
+Me gusta imaginar cosas y encontrar cómo darles vida. Creo software, exploro el dibujo y quiero construir mis propios mundos e historias.
 
-<p align="center">
-  <sub>
-    Estoy aprendiendo a crear software construyendo proyectos reales, desde cero.<br>
-    No tengo todas las respuestas. Cometo errores, enfrento problemas y aprendo en el proceso.<br>
-    Este espacio es parte de ese camino: probar, fallar, entender y volver a intentar.
-  </sub>
-</p>
+Estudié Ingeniería de Sistemas y mi experiencia laboral ha estado en infraestructura tecnológica. Hoy estoy enfocándome en el desarrollo: aprender construyendo proyectos y unir el código con aquella curiosidad por dibujar.
 
-<br>
+## Lo que estoy creando
 
-<!-- Table -->
+**grausvera-web**, mi espacio personal para reunir proyectos de software, videojuegos, historias y exploraciones visuales. La web está en desarrollo; su personaje animado cuenta cómo se encontraron mis ganas de dibujar y programar.
 
-<br>
+Mi objetivo es dar vida a un mundo de fantasía que llevo años imaginando. Esta web es uno de los primeros pasos.
 
-<p align="center">
-  <img
-    src="./assets/logo.svg"
-    alt="grausvera logo"
-    width="56"
-  >
-</p>
+## Dónde encontrarme
 
-<p align="center">
-  <sub>Un proyecto a la vez</sub>
-</p>
+[TikTok](https://tiktok.com/@grausvera) · [YouTube](https://youtube.com/@grausvera) · [Instagram](https://www.instagram.com/graussvera) · [X](https://x.com/graussvera)
 
-<!--
-Mostrar esta sección cuando haya proyectos para presentar.
-
-Estados:
-- EN DESARROLLO: construcción activa, sin una versión utilizable.
-- EN EVOLUCIÓN: versión utilizable que sigue incorporando capacidades.
-- DISPONIBLE: producto utilizable, sin una evolución importante en curso.
-
-Orden: EN DESARROLLO → EN EVOLUCIÓN → DISPONIBLE.
-Mostrar todos los proyectos activos, aunque superen seis. Si hay menos de seis,
-completar hasta seis con disponibles. Dentro de cada estado, priorizar relevancia.
-
-Usar dos columnas y añadir filas según se necesiten, sin celdas vacías.
-Cada proyecto muestra estado, nombre, descripción y una preview opcional.
-Sin página pública, el nombre queda como texto. Cuando exista una página pública
-del proyecto, usar <strong><a href="PROJECT_URL">project-name</a></strong>.
-
-Debajo de la descripción, añadir una imagen o GIF cuando exista una preview.
-Si hay un video, enlazar la preview con <a href="VIDEO_URL">...</a>.
-Sin preview, omitir la imagen y el salto de línea que la precede.
-
-<table>
-  <tr>
-    <td width="50%" valign="top">
-      <sub>ESTADO</sub><br><br>
-      <strong>project-name</strong><br><br>
-      Descripción breve del propósito del proyecto.<br><br>
-      <img src="PREVIEW_URL" alt="Vista previa de project-name" width="100%">
-    </td>
-    <td width="50%" valign="top">
-      <sub>ESTADO</sub><br><br>
-      <strong>project-name</strong><br><br>
-      Descripción breve del propósito del proyecto.<br><br>
-      <img src="PREVIEW_URL" alt="Vista previa de project-name" width="100%">
-    </td>
-  </tr>
-</table>
--->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./assets/logo-dark.svg">
+  <img src="./assets/logo.svg" alt="El personaje de grausvera observa una estrella" width="88">
+</picture>
