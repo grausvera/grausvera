@@ -1,22 +1,38 @@
 <img src="./assets/banner.svg" alt="grausvera" width="100%">
 
-## Hola, soy grausvera
+<h2 align="center">El lápiz imagina. El código le da vida</h2>
 
-Me gusta imaginar cosas y encontrar cómo darles vida. Creo software, exploro el dibujo y quiero construir mis propios mundos e historias.
+<p align="center">Me gusta crear cosas que empiezan con un «¿y si…?»<br>Un personaje, una herramienta o un mundo que todavía no existe</p>
 
-Estudié Ingeniería de Sistemas y mi experiencia laboral ha estado en infraestructura tecnológica. Hoy estoy enfocándome en el desarrollo: aprender construyendo proyectos y unir el código con aquella curiosidad por dibujar.
+<br>
 
-## Lo que estoy creando
+<table>
+  <tr>
+    <th width="33%" align="left">Código</th>
+    <th width="33%" align="left">Dibujo</th>
+    <th width="33%" align="left">Mundos</th>
+  </tr>
+  <tr>
+    <td valign="top">Convertir ideas en algo que funciona</td>
+    <td valign="top">Dar forma a lo que imagino</td>
+    <td valign="top">Inventar historias que quiero hacer realidad</td>
+  </tr>
+</table>
 
-**grausvera-web**, mi espacio personal para reunir proyectos de software, videojuegos, historias y exploraciones visuales. La web está en desarrollo; su personaje animado cuenta cómo se encontraron mis ganas de dibujar y programar.
+## El mismo sueño, otras herramientas
 
-Mi objetivo es dar vida a un mundo de fantasía que llevo años imaginando. Esta web es uno de los primeros pasos.
+De niño llenaba hojas de personajes. Años después, un pequeño juego en C++ me hizo descubrir otra manera de crear. Desde entonces quiero unir el dibujo y el desarrollo para dar vida a una historia de fantasía que llevo mucho tiempo imaginando.
 
-## Dónde encontrarme
+Estudié Ingeniería de Sistemas y he trabajado en infraestructura tecnológica. Ahora estoy enfocando mi camino en el desarrollo de software: aprender, construir y ganar experiencia con proyectos propios.
 
-[TikTok](https://tiktok.com/@grausvera) · [YouTube](https://youtube.com/@grausvera) · [Instagram](https://www.instagram.com/graussvera) · [X](https://x.com/graussvera)
+## Lo que está tomando forma
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="./assets/logo-dark.svg">
-  <img src="./assets/logo.svg" alt="El personaje de grausvera observa una estrella" width="88">
-</picture>
+**grausvera-web** es mi primer espacio para reunir esas ideas. Una web personal con un personaje que cuenta mi historia, una identidad dibujada a mano y un lugar para los proyectos que vendrán.
+
+Está en desarrollo. Igual que este camino: todavía hay mucho por aprender y muchas cosas por crear.
+
+<br>
+
+<p align="center"><strong>Aquel niño que quería crear mundos sigue aquí</strong><br><sub>Esta vez, con más herramientas</sub></p>
+
+<p align="center"><sub>Continuará…</sub></p>
