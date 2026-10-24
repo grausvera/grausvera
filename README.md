@@ -8,13 +8,11 @@
 <table>
   <tr>
     <td width="320" valign="top">
-      <a href="https://example.com">
-        <img src="./assets/grausvera-web-preview.png" alt="Portada de grausvera-web: el personaje y su marca" width="300"><br><br>
-        <strong>grausvera-web</strong><br>
-        <sub>En desarrollo</sub><br><br>
-        Un espacio propio donde el dibujo,<br>
-        el código y mi historia se encuentran
-      </a>
+      <a href="https://example.com"><img src="./assets/grausvera-web-preview.png" alt="Portada de grausvera-web: el personaje y su marca" width="300"></a><br><br>
+      <strong><a href="https://github.com/grausvera/grausvera-web">grausvera-web</a></strong><br>
+      <sub>En desarrollo</sub><br><br>
+      Un espacio propio donde el dibujo,<br>
+      el código y mi historia se encuentran
     </td>
   </tr>
 </table>
