@@ -5,16 +5,16 @@
 <p align="center">Me gusta crear cosas que empiezan con un «¿y si…?»<br>Un personaje, una herramienta o un mundo que todavía no existe</p>
 
 
-## Lo que está tomando forma
-
 <table>
   <tr>
     <td width="320" valign="top">
-      <img src="./assets/grausvera-web-preview.png" alt="Portada de grausvera-web: el personaje y su marca" width="300"><br><br>
-      <strong>grausvera-web</strong><br>
-      <sub>En desarrollo</sub><br><br>
-      Un espacio propio donde el dibujo,<br>
-      el código y mi historia se encuentran
+      <a href="https://example.com">
+        <img src="./assets/grausvera-web-preview.png" alt="Portada de grausvera-web: el personaje y su marca" width="300"><br><br>
+        <strong>grausvera-web</strong><br>
+        <sub>En desarrollo</sub><br><br>
+        Un espacio propio donde el dibujo,<br>
+        el código y mi historia se encuentran
+      </a>
     </td>
   </tr>
 </table>
