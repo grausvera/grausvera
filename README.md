@@ -5,6 +5,8 @@
 <p align="center">Me gusta crear cosas que empiezan con un «¿y si…?»<br>Un personaje, una herramienta o un mundo que todavía no existe</p>
 
 
+<br>
+
 <table>
   <tr>
     <td width="320" valign="top">
@@ -17,6 +19,7 @@
   </tr>
 </table>
 
+<br>
 <br>
 
 <p align="center"><strong>Aquel niño que quería crear mundos sigue aquí</strong><br><sub>Esta vez, con más herramientas</sub></p>
