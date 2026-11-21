@@ -1,0 +1,188 @@
+---
+import { getCollection } from "astro:content";
+import CreationCover from "../../components/creation-cover.astro";
+import { creationGroups, creationTypes } from "../../data/creation-types";
+import SiteLayout from "../../layouts/site-layout.astro";
+
+const creations = await getCollection("creations");
+creations.sort(
+  (first, second) =>
+    Number(second.data.featured) - Number(first.data.featured) ||
+    second.data.createdAt.getTime() - first.data.createdAt.getTime() ||
+    first.id.localeCompare(second.id),
+);
+---
+
+<SiteLayout
+  title="Explora mis creaciones"
+  description="Software, historias, imágenes, música y mundos que van tomando forma en grausvera."
+>
+  <div class="page-intro">
+    <p class="eyebrow">Creaciones</p>
+    <h1>
+      Ideas que encuentran
+      <br />
+      su forma
+    </h1>
+    <p class="lead">
+      Software, historias, imágenes, música y mundos por descubrir. Cada
+      creación puede vivir por sí sola o conectarse con otras.
+    </p>
+  </div>
+  <section aria-label="Catálogo de creaciones" data-catalog>
+    <nav class="catalog-filters" aria-label="Filtros de creaciones">
+      <a href="/creations" data-group="all" aria-current="true">
+        Todo
+      </a>
+      {creationGroups.map(({ id, label }) => (
+        <a href={`/creations?group=${id}`} data-group={id} hidden>
+          {label}
+        </a>
+      ))}
+      <a class="tool-filter" href="/creations" hidden>
+        <span data-tool-name></span>
+        <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true">
+          <use href="/contact-icons.svg#x"></use>
+        </svg>
+      </a>
+    </nav>
+    <p class="catalog-count" role="status">
+      {creations.length} {creations.length === 1 ? "creación" : "creaciones"}
+    </p>
+    <div class="creation-grid">
+      {creations.map(({ id, data }) => (
+        <article
+          class="creation-card"
+          data-group={creationTypes[data.type].group}
+          data-tools={JSON.stringify(data.tools)}
+        >
+          <a class="creation-link" href={`/creations/${id}`}>
+            <CreationCover cover={data.cover} />
+            <div class="creation-heading">
+              <h2>{data.title}</h2>
+              <span>{data.status}</span>
+            </div>
+            <p>{data.summary}</p>
+            <span class="creation-type">{creationTypes[data.type].label}</span>
+            <span class="sr-only">. Ver creación</span>
+          </a>
+        </article>
+      ))}
+    </div>
+    <p class="catalog-empty" hidden>
+      Aún no hay creaciones con estos filtros.
+    </p>
+  </section>
+</SiteLayout>
+<style>
+  [data-catalog] [hidden] {
+    display: none;
+  }
+  .catalog-filters .tool-filter {
+    gap: 6px;
+    min-width: 0;
+    max-width: 100%;
+    padding-inline: 10px 8px;
+    border: 1px solid var(--accent);
+    background: var(--panel);
+    color: var(--text);
+  }
+
+  .tool-filter span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .tool-filter svg {
+    flex: none;
+    color: var(--accent);
+  }
+</style>
+<script>
+  import { creationGroups, creationTypes } from "../../data/creation-types";
+
+  const query = new URLSearchParams(location.search);
+  const requestedGroup = query.get("group");
+  const legacyType = Object.entries(creationTypes).find(
+    ([type]) => type === query.get("type"),
+  );
+  const group =
+    creationGroups.find((item) => item.id === requestedGroup)?.id ??
+    legacyType?.[1].group ??
+    "all";
+  const tool = (query.get("tool") ?? "").trim();
+
+  // Conserva la herramienta al cambiar de grupo mediante un enlace directo.
+  function catalogPath(selectedGroup: string, selectedTool: string) {
+    const parameters = new URLSearchParams();
+
+    if (selectedGroup !== "all") {
+      parameters.set("group", selectedGroup);
+    }
+
+    if (selectedTool) {
+      parameters.set("tool", selectedTool);
+    }
+
+    return parameters.size ? `/creations?${parameters}` : "/creations";
+  }
+
+  const availableGroups = new Set<string>();
+  let count = 0;
+
+  for (const card of document.querySelectorAll<HTMLElement>(".creation-card")) {
+    const tools: string[] = JSON.parse(card.dataset.tools ?? "[]");
+    const cardGroup = card.dataset.group ?? "";
+    const matchesTool =
+      !tool || tools.some((item) => item.toLowerCase() === tool.toLowerCase());
+    card.hidden = !matchesTool || (group !== "all" && cardGroup !== group);
+
+    if (matchesTool) {
+      availableGroups.add(cardGroup);
+    }
+
+    if (!card.hidden) {
+      count++;
+    }
+  }
+
+  for (const link of document.querySelectorAll<HTMLAnchorElement>(
+    ".catalog-filters [data-group]",
+  )) {
+    const linkGroup = link.dataset.group ?? "all";
+    link.hidden =
+      linkGroup !== "all" &&
+      linkGroup !== group &&
+      !availableGroups.has(linkGroup);
+    link.href = catalogPath(linkGroup, tool);
+    link.removeAttribute("aria-current");
+
+    if (linkGroup === group) {
+      link.setAttribute("aria-current", "true");
+    }
+  }
+
+  const status = document.querySelector(".catalog-count");
+  const empty = document.querySelector<HTMLElement>(".catalog-empty");
+  const clearTool = document.querySelector<HTMLAnchorElement>(".tool-filter");
+  const toolName = clearTool?.querySelector("[data-tool-name]");
+
+  if (status) {
+    status.textContent = `${count} ${count === 1 ? "creación" : "creaciones"}`;
+  }
+
+  if (empty) {
+    empty.hidden = count > 0;
+  }
+
+  if (tool && clearTool && toolName) {
+    toolName.textContent = tool;
+    clearTool.href = catalogPath(group, "");
+    clearTool.setAttribute(
+      "aria-label",
+      `Quitar filtro de herramienta: ${tool}`,
+    );
+    clearTool.hidden = false;
+  }
+</script>

@@ -1,0 +1,11 @@
+.astro/
+dist/
+.knowledge/
+public/
+src/styles/global.css
+package-lock.json
+# El README conserva el formato del perfil de GitHub.
+README.md
+
+# Conserva el formato original de las licencias y metadatos de terceros.
+third-party/

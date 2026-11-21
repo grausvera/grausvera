@@ -1,0 +1,39 @@
+---
+import JournalEntryCard from "../../components/journal-entry-card.astro";
+import { getPublishedEntries } from "../../data/bitacora";
+import SiteLayout from "../../layouts/site-layout.astro";
+
+const entries = await getPublishedEntries();
+---
+
+<SiteLayout
+  title="Bitácora"
+  description="Notas sobre lo que aprendo y construyo en grausvera."
+>
+  <div class="page-intro">
+    <h1>Bitácora</h1>
+    <p class="lead">
+      Notas sobre lo que aprendo mientras dibujo, programo y doy forma a mis
+      creaciones.
+    </p>
+  </div>
+  {entries.length ? (
+    <ul class="entry-list">
+      {entries.map((entry) => (
+        <li>
+          <JournalEntryCard entry={entry} />
+        </li>
+      ))}
+    </ul>
+  ) : (
+    <p class="catalog-empty">Todavía no hay entradas en la bitácora.</p>
+  )}
+</SiteLayout>
+
+<style>
+  .entry-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+</style>

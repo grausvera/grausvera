@@ -1,0 +1,62 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { creationTypes } from "../data/creation-types";
+import CreationCover from "./creation-cover.astro";
+
+interface Props {
+  items: CollectionEntry<"creations">[];
+  isMainWebsite?: boolean;
+  heading?: string;
+}
+
+const { items, isMainWebsite = false, heading } = Astro.props;
+---
+
+{items.length > 0 && (
+  <section
+    class="creation-relations"
+    aria-labelledby="creation-relations-title"
+  >
+    <h2 id="creation-relations-title">
+      {heading ??
+        (isMainWebsite ? "Detrás de grausvera" : "Creaciones relacionadas")}
+    </h2>
+    {isMainWebsite && (
+      <p>
+        La identidad y la animación que dan forma a este sitio tienen su propio
+        espacio.
+      </p>
+    )}
+    <ul class="related-pieces">
+      {items.map(({ id, data }) => (
+        <li>
+          <a class="related-piece" href={`/creations/${id}`}>
+            <div class="related-piece-cover">
+              <CreationCover cover={data.cover} />
+            </div>
+            <div class="related-piece-copy">
+              <span>{creationTypes[data.type].label}</span>
+              <h3>{data.title}</h3>
+              <p>{data.summary}</p>
+            </div>
+            <span class="related-piece-action">
+              <svg
+                class="contact-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.6"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="m9 6 6 6-6 6" />
+              </svg>
+              <span class="sr-only">Ver creación</span>
+            </span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+)}

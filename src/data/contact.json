@@ -1,0 +1,32 @@
+[
+  {
+    "href": "https://tiktok.com/@grausvera",
+    "group": "social",
+    "label": "TikTok",
+    "description": "@grausvera"
+  },
+  {
+    "href": "https://youtube.com/@grausvera",
+    "group": "social",
+    "label": "YouTube",
+    "description": "@grausvera"
+  },
+  {
+    "href": "https://www.instagram.com/graussvera",
+    "group": "social",
+    "label": "Instagram",
+    "description": "@graussvera"
+  },
+  {
+    "href": "https://x.com/graussvera",
+    "group": "social",
+    "label": "X",
+    "description": "@graussvera"
+  },
+  {
+    "href": "https://github.com/grausvera",
+    "group": "code",
+    "label": "GitHub",
+    "description": "grausvera · Código y proyectos"
+  }
+]

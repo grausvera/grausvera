@@ -1,0 +1,61 @@
+---
+import { contactGroups, contactLinks } from "../data/contact";
+
+const groups = contactGroups
+  .map((group) => ({
+    ...group,
+    links: contactLinks.filter((link) => link.group === group.id),
+  }))
+  .filter((group) => group.links.length > 0);
+---
+
+{groups.length === 0 && (
+  <p class="contact-placeholder">
+    Estoy preparando mis canales de contacto. Pronto estarán aquí.
+  </p>
+)}
+{groups.map(({ id, label, links }) => (
+  <section class="contact-channels" aria-labelledby={`contact-${id}-title`}>
+    <h2 id={`contact-${id}-title`}>{label}</h2>
+    <ul
+      class:list={[
+        "contact-links",
+        { "contact-links-featured": id !== "social" },
+      ]}
+    >
+      {links.map((link) => (
+        <li>
+          <a href={link.href} target="_blank" rel="noopener noreferrer">
+            <span class="contact-link-main">
+              <svg
+                class="contact-icon"
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <use href={`/contact-icons.svg#${link.icon}`} />
+              </svg>
+              <span>
+                <strong>{link.label}</strong>
+                <span class="contact-link-description">{link.description}</span>
+              </span>
+            </span>
+            <svg
+              class="contact-icon"
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <use href="/contact-icons.svg#external-link" />
+            </svg>
+            <span class="sr-only"> (se abre en una pestaña nueva)</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+))}

@@ -1,0 +1,80 @@
+---
+import BrandMark from "../components/brand-mark.astro";
+import BrandWordmark from "../components/brand-wordmark.astro";
+import SiteLayout from "../layouts/site-layout.astro";
+---
+
+<SiteLayout
+  title="Conóceme"
+  description="La historia de grausvera: dibujo, programación y la curiosidad por crear cosas."
+>
+  <div class="page-intro">
+    <p class="eyebrow">Sobre mí</p>
+    <h1>
+      Siempre me gustó
+      <br />
+      crear cosas
+    </h1>
+    <p class="lead">
+      A veces con un lápiz. Otras, con código. Y casi siempre, empezando por
+      imaginar algo que todavía no existe.
+    </p>
+  </div>
+  <div class="about-copy">
+    <section>
+      <h2>Todo empezó dibujando</h2>
+      <p>
+        De niño podía pasar horas inventando personajes sobre una hoja. Con los
+        años dibujé menos, pero la imaginación seguía haciendo lo suyo: una
+        mancha en la pizarra podía convertirse en una criatura.
+      </p>
+      <p>
+        Después llegaron las series animadas y una idea que nunca terminó de
+        irse: crear mi propia historia de fantasía, con mis personajes y mis
+        reglas.
+      </p>
+    </section>
+    <section>
+      <h2>Otra manera de dar vida</h2>
+      <p>
+        No tenía muy claro qué estudiar. Elegí Ingeniería de Sistemas porque la
+        tecnología y los videojuegos me parecían divertidos. En las primeras
+        clases descubrí la programación: un «Hola, mundo» y un pequeño juego en
+        C++ fueron suficientes para despertar esa curiosidad.
+      </p>
+      <p>
+        Con el tiempo entendí la conexión. Dibujar me permitía imaginar cosas;
+        programar podía hacer que se movieran, respondieran y funcionaran.
+      </p>
+    </section>
+    <section>
+      <h2>El comienzo de grausvera</h2>
+      <p>
+        Mi experiencia laboral ha estado en infraestructura tecnológica. El
+        desarrollo y aquel mundo de fantasía tuvieron que esperar, muchas veces
+        porque sentía que todavía me faltaba aprender más.
+      </p>
+      <p>
+        Hoy quiero aprender construyendo: software, videojuegos, dibujos,
+        modelos 3D y, algún día, esas historias que llevo tanto tiempo
+        imaginando.
+      </p>
+      <p>
+        grausvera representa esa parte de mí que quiere hacerlo realidad. Este
+        espacio es el comienzo.
+      </p>
+      <div class="about-signature" data-drawing-surface="board">
+        <BrandMark />
+        <BrandWordmark />
+      </div>
+    </section>
+  </div>
+  <div class="page-actions">
+    <a class="primary" href="/creations">
+      Ver lo que estoy creando
+    </a>
+    <a class="text-link" href="/contact">
+      Contacto
+    </a>
+  </div>
+</SiteLayout>

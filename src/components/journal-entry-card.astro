@@ -1,0 +1,109 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { formatEntryDate, getEntryCover, getEntryPath } from "../data/bitacora";
+import CreationCover from "./creation-cover.astro";
+
+interface Props {
+  entry: CollectionEntry<"bitacora">;
+  heading?: "h2" | "h3";
+}
+
+const { entry, heading: Heading = "h2" } = Astro.props;
+const cover = await getEntryCover(entry.data);
+---
+
+<article>
+  <a
+    class:list={["journal-card-entry", { "has-cover": cover }]}
+    href={getEntryPath(entry.id)}
+  >
+    {cover && (
+      <div class="journal-card-cover">
+        <CreationCover cover={cover} />
+      </div>
+    )}
+    <div class="journal-card-copy">
+      <time datetime={entry.data.date}>{formatEntryDate(entry.data.date)}</time>
+      <Heading>{entry.data.title}</Heading>
+      <p>{entry.data.summary}</p>
+      <span class="journal-card-action">
+        Leer entrada
+        <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
+          <use href="/contact-icons.svg#chevron-right"></use>
+        </svg>
+      </span>
+    </div>
+  </a>
+</article>
+
+<style>
+  .journal-card-entry {
+    display: grid;
+    align-items: center;
+    margin-top: 16px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: var(--panel);
+    color: var(--text);
+  }
+
+  .journal-card-entry.has-cover {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  }
+
+  .journal-card-cover {
+    padding: 12px;
+  }
+
+  .journal-card-copy {
+    min-width: 0;
+    padding: clamp(16px, 3vw, 32px);
+  }
+
+  .journal-card-copy time {
+    color: var(--muted);
+    font-size: 13px;
+  }
+
+  .journal-card-copy :is(h2, h3) {
+    margin: 8px 0;
+    font-size: clamp(23px, 3.4vw, 36px);
+    line-height: 1.15;
+    text-wrap: balance;
+  }
+
+  .journal-card-copy p {
+    margin: 0;
+  }
+
+  .journal-card-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 14px;
+    color: var(--accent);
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .journal-card-entry:focus-visible,
+  .journal-card-entry:hover {
+    border-color: var(--accent);
+  }
+
+  .journal-card-entry:focus-visible .journal-card-action,
+  .journal-card-entry:hover .journal-card-action {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  @media (max-width: 600px) {
+    .journal-card-entry.has-cover {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .journal-card-cover + .journal-card-copy {
+      padding-top: 4px;
+    }
+  }
+</style>

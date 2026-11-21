@@ -1,0 +1,34 @@
+---
+interface Props {
+  animated?: boolean;
+}
+
+const { animated = false } = Astro.props;
+const lightSource = animated
+  ? "/brand/logo-animated-short.svg"
+  : "/brand/logo.svg";
+const darkSource = animated
+  ? "/brand/logo-animated-short-dark.svg"
+  : "/brand/logo-dark.svg";
+---
+
+<span class="brand-mark" aria-hidden="true">
+  <picture class="brand-mark-light">
+    {animated && (
+      <source
+        media="(prefers-reduced-motion: reduce)"
+        srcset="/brand/logo.svg"
+      />
+    )}
+    <img src={lightSource} width="116" height="116" alt="" />
+  </picture>
+  <picture class="brand-mark-dark">
+    {animated && (
+      <source
+        media="(prefers-reduced-motion: reduce)"
+        srcset="/brand/logo-dark.svg"
+      />
+    )}
+    <img src={darkSource} width="116" height="116" alt="" />
+  </picture>
+</span>

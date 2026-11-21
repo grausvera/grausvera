@@ -1,0 +1,24 @@
+---
+import SiteLayout from "../layouts/site-layout.astro";
+---
+
+<SiteLayout
+  title="Página no encontrada"
+  description="El enlace puede haber cambiado o la creación aún no está disponible."
+  notFound
+>
+  <section class="page-intro">
+    <h1>No encontramos esta página</h1>
+    <p class="lead">
+      El enlace puede haber cambiado o la creación aún no está disponible.
+    </p>
+    <div class="page-actions">
+      <a class="primary" href="/creations">
+        Ver creaciones
+      </a>
+      <a class="text-link" href="/">
+        Volver al inicio
+      </a>
+    </div>
+  </section>
+</SiteLayout>

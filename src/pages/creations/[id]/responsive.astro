@@ -1,0 +1,102 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import SiteLayout from "../../../layouts/site-layout.astro";
+
+interface Props {
+  creation: CollectionEntry<"creations">;
+}
+
+// Genera la vista de dispositivos solo para las fichas que la habilitan explícitamente.
+export async function getStaticPaths() {
+  const websites = await getCollection(
+    "creations",
+    ({ data }) => data.type === "website" && data.website?.responsive === true,
+  );
+
+  return websites.map((creation) => ({
+    params: { id: creation.id },
+    props: { creation },
+  }));
+}
+
+const { creation } = Astro.props;
+const { data } = creation;
+const devices = [
+  { id: "desktop", label: "Escritorio", width: 1440, height: 900 },
+  { id: "tablet", label: "Tablet", width: 820, height: 1180 },
+  { id: "mobile", label: "Móvil", width: 390, height: 844 },
+];
+---
+
+<SiteLayout
+  indexable={false}
+  title={`Vista responsive · ${data.title}`}
+  description={`Explora cómo se adapta ${data.title} a escritorio, tablet y móvil.`}
+>
+  <div class="responsive-showcase-page">
+    <a class="text-link" href={`/creations/${creation.id}`}>
+      Volver a {data.title}
+    </a>
+    <div class="page-intro">
+      <h1>Un sitio, distintas pantallas</h1>
+      <p class="lead">
+        Descubre cómo se adapta {data.title} a escritorio, tablet y móvil
+      </p>
+    </div>
+    <section
+      class="responsive-showcase"
+      aria-label={`Vista responsive de ${data.title}`}
+    >
+      <div class="responsive-preview-toolbar">
+        <div
+          class="responsive-device-options"
+          role="group"
+          aria-label="Tamaño de pantalla"
+        >
+          {devices.map((device, index) => (
+            <button
+              type="button"
+              data-device={device.id}
+              data-width={device.width}
+              data-height={device.height}
+              aria-pressed={index === 0}
+            >
+              {device.label}
+            </button>
+          ))}
+        </div>
+        <span class="responsive-dimensions" role="status">
+          1440 × 900 px
+        </span>
+      </div>
+      <div class="responsive-preview-surface">
+        <div class="responsive-device-frame is-desktop">
+          <div class="responsive-browser-bar" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+            <i>{data.title}</i>
+          </div>
+          <div class="responsive-frame-viewport">
+            <iframe
+              title={`Vista de ${data.title}`}
+              src={data.website?.path}
+              width="1440"
+              height="900"
+            ></iframe>
+          </div>
+        </div>
+      </div>
+      <div class="responsive-preview-footer">
+        <p>Recorre la página dentro de la pantalla para explorar su diseño</p>
+        <button type="button" class="text-link" data-preview-reset>
+          Volver al inicio
+        </button>
+      </div>
+    </section>
+  </div>
+</SiteLayout>
+
+<script>
+  import "../../../scripts/responsive-preview";
+</script>

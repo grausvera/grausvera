@@ -1,0 +1,473 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { layoutGalleryWall } from "../data/gallery-wall";
+
+interface Props {
+  cover: CollectionEntry<"creations">["data"]["cover"];
+  items: CollectionEntry<"creations">["data"]["gallery"];
+}
+
+const { cover, items } = Astro.props;
+const layout = layoutGalleryWall(items, 780);
+---
+
+<section class="creation-media-gallery" aria-label="Galería multimedia">
+  <div
+    class="creation-masonry-grid"
+    data-gallery-wall
+    style={{ aspectRatio: `${layout.width} / ${layout.height}` }}
+  >
+    {items.map((item, index) => {
+      const frame = layout.frames[index];
+      const light = item.dark ?? item.light;
+      const dark = item.light;
+      const format = light.split(".").at(-1)?.toUpperCase();
+
+      return (
+        <div
+          class="creation-masonry-card"
+          data-id={item.id}
+          data-width={item.width}
+          data-height={item.height}
+          style={{
+            left: `${(frame.x / layout.width) * 100}%`,
+            top: `${(frame.y / layout.height) * 100}%`,
+            width: `${(frame.width / layout.width) * 100}%`,
+            height: `${(frame.height / layout.height) * 100}%`,
+          }}
+        >
+          <a
+            class="gallery-media-surface"
+            href={light}
+            data-open-media
+            data-light={light}
+            data-dark={dark}
+            data-still-light={item.stillDark ?? item.stillLight}
+            data-still-dark={item.stillLight ?? item.stillDark}
+            data-kind={item.kind}
+            data-has-audio={item.hasAudio ? "true" : undefined}
+            data-alt={item.alt}
+            aria-label={`Abrir en el visor: ${item.alt}`}
+          >
+            <span class="themed-image">
+              <picture class="themed-image-light">
+                {(item.stillDark ?? item.stillLight) && (
+                  <source
+                    media="(prefers-reduced-motion: reduce)"
+                    srcset={item.stillDark ?? item.stillLight}
+                  />
+                )}
+                <img
+                  src={
+                    item.kind === "video" ? (cover.dark ?? cover.light) : light
+                  }
+                  alt={item.alt}
+                  width={item.width}
+                  height={item.height}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </picture>
+              <picture class="themed-image-dark">
+                {(item.stillLight ?? item.stillDark) && (
+                  <source
+                    media="(prefers-reduced-motion: reduce)"
+                    srcset={item.stillLight ?? item.stillDark}
+                  />
+                )}
+                <img
+                  src={item.kind === "video" ? cover.light : dark}
+                  alt={item.alt}
+                  width={item.width}
+                  height={item.height}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </picture>
+            </span>
+          </a>
+          {item.kind === "video" && (
+            <div class="gallery-media-actions">
+              <button
+                class="gallery-media-icon"
+                type="button"
+                data-expand-video
+                aria-label="Abrir video en el visor"
+                hidden
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                  aria-hidden="true"
+                >
+                  <path d="M9 4H4v5m11-5h5v5m0 6v5h-5M4 15v5h5" />
+                </svg>
+              </button>
+            </div>
+          )}
+          {(item.kind === "video" ||
+            [light, dark].some((source) => source.endsWith(".gif"))) && (
+            <button
+              class="gallery-media-icon gallery-restart"
+              type="button"
+              data-restart-media
+              aria-label="Reiniciar animación"
+              hidden
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.6"
+                aria-hidden="true"
+              >
+                <path d="M4 11a8 8 0 1 1 2 7M4 5v6h6" />
+              </svg>
+            </button>
+          )}
+          <span class="gallery-media-format" aria-hidden="true">
+            {format}
+          </span>
+        </div>
+      );
+    })}
+  </div>
+  <dialog class="creation-gallery-dialog" aria-label="Visor multimedia">
+    <div class="gallery-dialog-frame">
+      <div class="gallery-dialog-stage"></div>
+      <template data-video-controls>
+        <div
+          class="viewer-video-controls"
+          role="group"
+          aria-label="Reproducción del video"
+        >
+          <button
+            type="button"
+            class="gallery-media-icon video-play"
+            data-video-play
+            aria-label="Reproducir"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <use href="/contact-icons.svg#play"></use>
+            </svg>
+          </button>
+          <button
+            type="button"
+            class="gallery-media-icon"
+            data-video-restart
+            aria-label="Reiniciar video"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <use href="/contact-icons.svg#rotate-ccw"></use>
+            </svg>
+          </button>
+          <input
+            type="range"
+            min="0"
+            max="1"
+            step="0.1"
+            value="0"
+            data-video-seek
+            aria-label="Posición del video"
+            disabled
+          />
+          <span class="video-time" data-video-time aria-hidden="true">
+            0:00 / 0:00
+          </span>
+          <button
+            type="button"
+            class="gallery-media-icon"
+            data-video-mute
+            aria-label="Video sin audio"
+            disabled
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <use href="/contact-icons.svg#volume-x"></use>
+            </svg>
+          </button>
+          <input
+            type="range"
+            min="0"
+            max="1"
+            step="0.05"
+            value="1"
+            data-video-volume
+            aria-label="Volumen"
+            hidden
+          />
+        </div>
+      </template>
+      <div class="gallery-dialog-controls">
+        <div data-playback-slot hidden></div>
+        <div class="gallery-dialog-navigation">
+          <button
+            class="gallery-media-icon"
+            type="button"
+            data-previous
+            aria-label="Anterior"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <use href="/contact-icons.svg#chevron-left"></use>
+            </svg>
+          </button>
+          <span data-gallery-position aria-live="polite"></span>
+          <button
+            class="gallery-media-icon"
+            type="button"
+            data-next
+            aria-label="Siguiente"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <use href="/contact-icons.svg#chevron-right"></use>
+            </svg>
+          </button>
+          <button
+            class="gallery-media-icon"
+            type="button"
+            data-video-fullscreen
+            aria-label="Pantalla completa"
+            hidden
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <use href="/contact-icons.svg#maximize"></use>
+              <path
+                data-exit-fullscreen
+                d="M4 9h5V4m11 5h-5V4M4 15h5v5m11-5h-5v5"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.6"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></path>
+            </svg>
+          </button>
+          <form method="dialog">
+            <button
+              class="gallery-media-icon"
+              aria-label="Cerrar visor"
+              autofocus
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <use href="/contact-icons.svg#x"></use>
+              </svg>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </dialog>
+</section>
+
+<style>
+  .creation-gallery-dialog {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: var(--bg);
+    color: var(--text);
+  }
+
+  .creation-gallery-dialog[open] {
+    display: grid;
+    grid-template: minmax(0, 1fr) / minmax(0, 1fr);
+  }
+
+  .gallery-dialog-frame {
+    position: relative;
+    display: grid;
+    grid-template: minmax(0, 1fr) / minmax(0, 1fr);
+    background: var(--bg);
+  }
+
+  .gallery-dialog-stage {
+    display: grid;
+    place-items: center;
+    grid-template: minmax(0, 1fr) / minmax(0, 1fr);
+    overflow: hidden;
+    min-width: 0;
+    min-height: 0;
+  }
+
+  .gallery-dialog-stage :global(:is(img, video)) {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: min(94%, 1200px);
+    max-height: 88%;
+    object-fit: contain;
+  }
+
+  .gallery-dialog-stage :global(video) {
+    width: 100%;
+    height: 100%;
+  }
+
+  .gallery-restart {
+    position: absolute;
+    left: 8px;
+    bottom: 8px;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .creation-masonry-card:hover .gallery-restart,
+  .gallery-restart:focus-visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  @media (hover: none), (pointer: coarse) {
+    .creation-masonry-card
+      :is(.gallery-media-format, .gallery-media-actions, .gallery-restart) {
+      display: none;
+    }
+
+    .gallery-video-surface {
+      touch-action: auto;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-still-light] ~ .gallery-restart {
+      display: none;
+    }
+  }
+
+  .gallery-media-icon[hidden] {
+    display: none;
+  }
+
+  .gallery-media-surface :global(video) {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .gallery-dialog-controls {
+    position: absolute;
+    inset-inline: 0;
+    bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    margin-inline: auto;
+    padding: 4px;
+    gap: 4px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: var(--panel);
+    box-shadow: 0 6px 20px rgb(0 0 0 / 18%);
+  }
+
+  .gallery-dialog-controls :global(.gallery-media-icon) {
+    border-color: transparent;
+    background: transparent;
+  }
+
+  .gallery-dialog-controls :global(.gallery-media-icon):hover {
+    background: color-mix(in srgb, var(--accent) 12%, var(--panel));
+  }
+
+  .gallery-dialog-controls form {
+    margin: 0;
+    padding-inline-start: 4px;
+    border-inline-start: 1px solid var(--line);
+  }
+
+  [data-gallery-position] {
+    padding-inline: 8px;
+    color: var(--text);
+    font-size: 13px;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  .gallery-dialog-controls:has([data-playback-slot]:not([hidden])) {
+    width: min(760px, calc(100% - 16px));
+  }
+
+  .gallery-dialog-navigation {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-inline: auto;
+  }
+
+  [data-playback-slot]:not([hidden]) {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .gallery-dialog-controls :global(.viewer-video-controls) {
+    display: flex;
+    align-items: center;
+    gap: clamp(4px, 1.2vw, 12px);
+  }
+
+  .gallery-dialog-controls :global(.gallery-media-icon svg) {
+    pointer-events: none;
+  }
+
+  [data-exit-fullscreen],
+  .gallery-dialog-frame:fullscreen [data-video-fullscreen] use {
+    display: none;
+  }
+
+  .gallery-dialog-frame:fullscreen [data-exit-fullscreen] {
+    display: inline;
+  }
+
+  .gallery-dialog-frame:fullscreen .gallery-dialog-stage :global(video) {
+    max-width: 100%;
+    max-height: 100%;
+  }
+
+  @media (max-width: 620px) {
+    .gallery-dialog-controls:has([data-playback-slot]:not([hidden])) {
+      flex-wrap: wrap;
+    }
+
+    [data-playback-slot]:not([hidden]) {
+      flex-basis: 100%;
+    }
+  }
+
+  .gallery-dialog-controls :global(.viewer-video-controls input) {
+    min-width: 0;
+    accent-color: var(--accent);
+  }
+
+  .gallery-dialog-controls :global([data-video-seek]) {
+    flex: 1 1 0;
+  }
+
+  .gallery-dialog-controls :global([data-video-volume]) {
+    width: clamp(36px, 10vw, 80px);
+  }
+
+  .gallery-dialog-controls :global(.video-play) {
+    background: color-mix(in srgb, var(--accent) 22%, var(--panel));
+  }
+
+  .gallery-dialog-controls :global(.viewer-video-controls button:disabled) {
+    opacity: 0.45;
+    cursor: default;
+  }
+
+  .gallery-dialog-controls :global(.video-time) {
+    font-size: 12px;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+</style>
+
+<script>
+  import "../scripts/creation-media-gallery";
+</script>

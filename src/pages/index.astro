@@ -1,0 +1,103 @@
+---
+import { getCollection } from "astro:content";
+import CreationCover from "../components/creation-cover.astro";
+import JournalEntryCard from "../components/journal-entry-card.astro";
+import StoryAnimation from "../components/story-animation.astro";
+import { getPublishedEntries } from "../data/bitacora";
+import { creationTypes } from "../data/creation-types";
+import SiteLayout from "../layouts/site-layout.astro";
+
+const featured = (await getCollection("creations", ({ data }) => data.featured))
+  .sort(
+    (first, second) =>
+      second.data.createdAt.getTime() - first.data.createdAt.getTime() ||
+      first.id.localeCompare(second.id),
+  )
+  .slice(0, 2);
+const recentEntries = (await getPublishedEntries()).slice(0, 3);
+---
+
+<SiteLayout description="Creo software, exploro el dibujo y construyo mundos e historias. Este es el lugar donde todo empieza a encontrarse.">
+  <section class="page-intro home-intro">
+    <StoryAnimation />
+    <p class="eyebrow home-copy">Hola, soy grausvera</p>
+    <h1 class="home-copy">{"Me gusta imaginar cosas\nY darles vida"}</h1>
+    <p class="lead home-copy">
+      {
+        "Creo software, exploro el dibujo y construyo mundos e historias.\nEste es el lugar donde todo empieza a encontrarse."
+      }
+    </p>
+    <a class="primary" href="/creations">
+      Explora mis creaciones
+    </a>
+  </section>
+  <section class="home-section" aria-labelledby="home-bitacora">
+    <div class="section-heading">
+      <h2 id="home-bitacora" class="home-copy">
+        Bitácora
+      </h2>
+      <a class="text-link" href="/bitacora">
+        Ver bitácora
+      </a>
+    </div>
+    {recentEntries.length > 0 ? (
+      recentEntries.map((entry) => (
+        <JournalEntryCard entry={entry} heading="h3" />
+      ))
+    ) : (
+      <p class="home-copy">Notas sobre lo que aprendo y construyo.</p>
+    )}
+  </section>
+  {featured.length > 0 && (
+    <section class="home-section">
+      <div class="section-heading">
+        <h2 class="home-copy">Lo que va tomando forma</h2>
+        <a class="text-link" href="/creations">
+          Ver creaciones
+        </a>
+      </div>
+      <p class="home-copy">
+        Una selección de proyectos donde se cruzan el código, el diseño y las
+        historias.
+      </p>
+      <div class="creation-grid">
+        {featured.map(({ id, data }) => (
+          <article class="creation-card">
+            <a class="creation-link" href={`/creations/${id}`}>
+              <CreationCover cover={data.cover} />
+              <div class="creation-heading">
+                <h3>{data.title}</h3>
+                <span>{data.status}</span>
+              </div>
+              <p>{data.summary}</p>
+              <span class="creation-type">
+                {creationTypes[data.type].label}
+              </span>
+            </a>
+          </article>
+        ))}
+      </div>
+    </section>
+  )}
+  <section class="home-section">
+    <h2 class="home-copy">La misma curiosidad de siempre</h2>
+    <p class="home-copy">
+      De niño dibujaba. Más adelante descubrí que también podía crear con
+      código. Hoy quiero unir esas dos formas de imaginar para dar vida a mis
+      propios proyectos.
+    </p>
+    <a class="text-link" href="/about">
+      Un poco más sobre mí
+    </a>
+  </section>
+  <section class="home-section">
+    <h2 class="home-copy">¿Creamos algo?</h2>
+    <p class="home-copy">
+      Me interesan los proyectos donde se encuentran la tecnología y la
+      imaginación.
+    </p>
+    <a class="text-link" href="/contact">
+      Mis contactos y enlaces
+    </a>
+  </section>
+</SiteLayout>

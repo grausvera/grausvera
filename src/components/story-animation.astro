@@ -1,0 +1,51 @@
+---
+import { PRESENTATION_DURATION } from "../scripts/story/story-ending.js";
+import { summaryAt } from "../scripts/story/story-summary.js";
+
+const narration = summaryAt(0);
+---
+
+<div
+  class="story-ambient story-scrubbable"
+  id="historia-animada"
+  data-story
+  data-drawing-surface="board"
+  role="slider"
+  tabindex="0"
+  aria-label="Avance de mi historia animada"
+  aria-orientation="horizontal"
+  aria-valuemin="0"
+  aria-valuemax={Math.ceil(PRESENTATION_DURATION / 1000)}
+  aria-valuenow="0"
+  aria-describedby="story-instructions"
+>
+  <canvas
+    class="whiteboard-canvas"
+    role="img"
+    aria-label="Un personaje dibujado descubre su mundo, crece y se reencuentra con su imaginación"
+  ></canvas>
+</div>
+<p id="story-instructions" class="sr-only">
+  Arrastra a la derecha para avanzar y a la izquierda para retroceder. Usa las
+  flechas, Inicio o Fin para recorrer la historia, y Espacio para pausar o
+  reanudar.
+</p>
+<div class="story-narration">
+  <span aria-hidden="true">
+    <span data-story-visible>{narration.visible}</span>
+    <i class="typing-caret"></i>
+  </span>
+  <span class="sr-only" data-story-text>
+    {narration.text}
+  </span>
+</div>
+
+<script>
+  import "../scripts/story/story-controls";
+</script>
+
+<style>
+  #historia-animada {
+    scroll-margin-top: 80px;
+  }
+</style>
