@@ -4,10 +4,7 @@ CONTAINER := podman run --rm --init --userns=keep-id -e ASTRO_TELEMETRY_DISABLED
 RUN := $(CONTAINER) -e HOME=/tmp
 PORT ?= 4321
 
-# Guarda la sesión de Vercel fuera del proyecto. Se puede cambiar al ejecutar make.
-VERCEL_CLI_HOME ?= $(HOME)/.creations/.vercel-cli-home
-
-.PHONY: install dev check build format-check vercel
+.PHONY: install dev check build format-check
 
 # Instala las versiones del lockfile dentro del contenedor.
 install:
@@ -28,8 +25,3 @@ build:
 # Verifica el formato del código nuevo sin modificarlo.
 format-check:
 	$(RUN) $(IMAGE) npm run format:check
-
-# Abre una terminal para Vercel CLI en Podman y crea la carpeta de sesión si falta.
-vercel:
-	mkdir -p "$(VERCEL_CLI_HOME)"
-	$(CONTAINER) -it -e HOME=/cli-home -v "$(VERCEL_CLI_HOME):/cli-home:Z" $(IMAGE) bash
