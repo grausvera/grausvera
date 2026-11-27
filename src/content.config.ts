@@ -67,10 +67,6 @@ const creations = defineCollection({
         repository: z.url({ protocol: /^https$/ }).optional(),
         responsive: z.boolean().default(false),
       })
-      .refine(({ path, responsive }) => !responsive || path === "/", {
-        path: ["responsive"],
-        message: "La vista de dispositivos requiere el sitio de grausvera.",
-      })
       .optional(),
     cover: z.object({
       light: coverPath,

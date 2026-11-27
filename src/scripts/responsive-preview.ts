@@ -25,6 +25,7 @@ function setupPreview(preview: HTMLElement) {
   }
 
   let selected = buttons[0];
+  const initialSource = iframe.src;
   const root = document.documentElement;
 
   // Recalcula el tamaño físico del marco al cambiar de dispositivo o ancho disponible.
@@ -65,19 +66,22 @@ function setupPreview(preview: HTMLElement) {
     });
   }
 
-  iframe.addEventListener("load", syncTheme);
   preview
     .querySelector("[data-preview-reset]")
     ?.addEventListener("click", () => {
-      iframe.src = "/";
+      iframe.src = initialSource;
     });
   new ResizeObserver(resize).observe(surface);
-  new MutationObserver(syncTheme).observe(root, {
-    attributes: true,
-    attributeFilter: ["class"],
-  });
   resize();
-  syncTheme();
+
+  if (new URL(initialSource).origin === window.location.origin) {
+    iframe.addEventListener("load", syncTheme);
+    new MutationObserver(syncTheme).observe(root, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+    syncTheme();
+  }
 }
 
 document
