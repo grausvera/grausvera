@@ -1,4 +1,5 @@
 ---
+import X from "@grausvera/unancha/astro/x";
 import { getCollection } from "astro:content";
 import CreationCover from "../../components/creation-cover.astro";
 import { creationGroups, creationTypes } from "../../data/creation-types";
@@ -41,9 +42,7 @@ creations.sort(
       ))}
       <a class="tool-filter" href="/creations" hidden>
         <span data-tool-name></span>
-        <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true">
-          <use href="/contact-icons.svg#x"></use>
-        </svg>
+        <X width="14" height="14" stroke-width="1.6" />
       </a>
     </nav>
     <p class="catalog-count" role="status">

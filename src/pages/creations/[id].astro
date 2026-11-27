@@ -1,4 +1,7 @@
 ---
+import Globe from "@grausvera/unancha/astro/globe";
+import Monitor from "@grausvera/unancha/astro/monitor";
+import PackageIcon from "@grausvera/unancha/astro/package";
 import { getCollection, render, type CollectionEntry } from "astro:content";
 import CreationCover from "../../components/creation-cover.astro";
 import CreationMediaGallery from "../../components/creation-media-gallery.astro";
@@ -101,38 +104,26 @@ const { Content } = await render(creation);
         </>
       )}
     </div>
-    {data.website && (
+    {(data.website || data.npm) && (
       <div
         class="website-access-links"
         role="group"
         aria-label="Explorar esta creación"
       >
-        <a href={data.website.path} target="_blank" rel="noopener noreferrer">
-          <svg
-            class="contact-icon"
-            viewBox="0 0 24 24"
-            aria-hidden="true"
-            focusable="false"
-          >
-            <use href="/contact-icons.svg#globe"></use>
-          </svg>
-          <span>Explorar el sitio</span>
-          <span class="sr-only"> (se abre en una pestaña nueva)</span>
-        </a>
-        {data.website.responsive && (
+        {data.website && (
+          <a href={data.website.path} target="_blank" rel="noopener noreferrer">
+            <Globe class="contact-icon" stroke-width="1.6" />
+            <span>Explorar el sitio</span>
+            <span class="sr-only"> (se abre en una pestaña nueva)</span>
+          </a>
+        )}
+        {data.website?.responsive && (
           <a href={`/creations/${creation.id}/responsive`}>
-            <svg
-              class="contact-icon"
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-              focusable="false"
-            >
-              <use href="/contact-icons.svg#devices"></use>
-            </svg>
+            <Monitor class="contact-icon" stroke-width="1.6" />
             <span>Ver diseño responsive</span>
           </a>
         )}
-        {data.website.repository && (
+        {data.website?.repository && (
           <a
             href={data.website.repository}
             target="_blank"
@@ -147,6 +138,13 @@ const { Content } = await render(creation);
               <use href="/contact-icons.svg#github"></use>
             </svg>
             <span>Ver repositorio</span>
+            <span class="sr-only"> (se abre en una pestaña nueva)</span>
+          </a>
+        )}
+        {data.npm && (
+          <a href={data.npm} target="_blank" rel="noopener noreferrer">
+            <PackageIcon class="contact-icon" stroke-width="1.6" />
+            <span>Ver paquete en npm</span>
             <span class="sr-only"> (se abre en una pestaña nueva)</span>
           </a>
         )}

@@ -1,4 +1,5 @@
 ---
+import ChevronRight from "@grausvera/unancha/astro/chevron-right";
 import type { CollectionEntry } from "astro:content";
 import { formatEntryDate, getEntryCover, getEntryPath } from "../data/bitacora";
 import CreationCover from "./creation-cover.astro";
@@ -18,7 +19,12 @@ const cover = await getEntryCover(entry.data);
     href={getEntryPath(entry.id)}
   >
     {cover && (
-      <div class="journal-card-cover">
+      <div
+        class:list={[
+          "journal-card-cover",
+          { "journal-card-cover-editorial": entry.data.cover },
+        ]}
+      >
         <CreationCover cover={cover} />
       </div>
     )}
@@ -28,9 +34,7 @@ const cover = await getEntryCover(entry.data);
       <p>{entry.data.summary}</p>
       <span class="journal-card-action">
         Leer entrada
-        <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
-          <use href="/contact-icons.svg#chevron-right"></use>
-        </svg>
+        <ChevronRight width="16" height="16" stroke-width="1.6" />
       </span>
     </div>
   </a>
@@ -38,6 +42,8 @@ const cover = await getEntryCover(entry.data);
 
 <style>
   .journal-card-entry {
+    --journal-card-copy-padding: clamp(16px, 3vw, 32px);
+
     display: grid;
     align-items: center;
     margin-top: 16px;
@@ -57,7 +63,7 @@ const cover = await getEntryCover(entry.data);
 
   .journal-card-copy {
     min-width: 0;
-    padding: clamp(16px, 3vw, 32px);
+    padding: var(--journal-card-copy-padding);
   }
 
   .journal-card-copy time {
@@ -95,6 +101,29 @@ const cover = await getEntryCover(entry.data);
   .journal-card-entry:hover .journal-card-action {
     text-decoration: underline;
     text-underline-offset: 4px;
+  }
+
+  @media (width > 600px) {
+    .journal-card-cover-editorial {
+      position: relative;
+      align-self: stretch;
+    }
+
+    .journal-card-cover-editorial :global(.creation-cover) {
+      position: absolute;
+      inset: var(--journal-card-copy-padding) 12px;
+      width: auto;
+      aspect-ratio: auto;
+    }
+
+    .journal-card-cover-editorial :global(.themed-image img) {
+      object-fit: cover;
+    }
+
+    .journal-card-cover-editorial + .journal-card-copy {
+      display: grid;
+      justify-items: start;
+    }
   }
 
   @media (max-width: 600px) {
