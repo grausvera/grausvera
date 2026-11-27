@@ -12,7 +12,7 @@
 
 <br>
 
-<table>
+<table align="center">
   <tr>
     <td width="320" valign="top">
       <a href="https://grausvera.com/">
