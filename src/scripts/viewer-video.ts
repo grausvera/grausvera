@@ -60,9 +60,7 @@ export function createViewerVideo(
   function updatePlay() {
     const paused = video.paused || video.ended;
     play?.setAttribute("aria-label", paused ? "Reproducir" : "Pausar");
-    play
-      ?.querySelector("use")
-      ?.setAttribute("href", `/contact-icons.svg#${paused ? "play" : "pause"}`);
+    play?.toggleAttribute("data-playing", !paused);
   }
 
   // Alterna la reproducción sin depender de los controles del navegador.
@@ -110,12 +108,7 @@ export function createViewerVideo(
     video.addEventListener("volumechange", () => {
       const silent = video.muted || video.volume === 0;
       mute.setAttribute("aria-label", silent ? "Activar sonido" : "Silenciar");
-      mute
-        .querySelector("use")
-        ?.setAttribute(
-          "href",
-          `/contact-icons.svg#${silent ? "volume-x" : "volume-2"}`,
-        );
+      mute.toggleAttribute("data-audible", !silent);
     });
   }
 

@@ -1,4 +1,14 @@
 ---
+import ChevronLeft from "@grausvera/unancha/astro/chevron-left";
+import ChevronRight from "@grausvera/unancha/astro/chevron-right";
+import Maximize from "@grausvera/unancha/astro/maximize";
+import Minimize from "@grausvera/unancha/astro/minimize";
+import Pause from "@grausvera/unancha/astro/pause";
+import Play from "@grausvera/unancha/astro/play";
+import RotateCounterclockwise from "@grausvera/unancha/astro/rotate-counterclockwise";
+import Volume from "@grausvera/unancha/astro/volume";
+import VolumeOff from "@grausvera/unancha/astro/volume-off";
+import X from "@grausvera/unancha/astro/x";
 import type { CollectionEntry } from "astro:content";
 import { layoutGalleryWall } from "../data/gallery-wall";
 
@@ -95,15 +105,7 @@ const layout = layoutGalleryWall(items, 780);
                 aria-label="Abrir video en el visor"
                 hidden
               >
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.6"
-                  aria-hidden="true"
-                >
-                  <path d="M9 4H4v5m11-5h5v5m0 6v5h-5M4 15v5h5" />
-                </svg>
+                <Maximize stroke-width="1.6" />
               </button>
             </div>
           )}
@@ -116,15 +118,7 @@ const layout = layoutGalleryWall(items, 780);
               aria-label="Reiniciar animación"
               hidden
             >
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.6"
-                aria-hidden="true"
-              >
-                <path d="M4 11a8 8 0 1 1 2 7M4 5v6h6" />
-              </svg>
+              <RotateCounterclockwise stroke-width="1.6" />
             </button>
           )}
           <span class="gallery-media-format" aria-hidden="true">
@@ -149,9 +143,8 @@ const layout = layoutGalleryWall(items, 780);
             data-video-play
             aria-label="Reproducir"
           >
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <use href="/contact-icons.svg#play"></use>
-            </svg>
+            <Play data-play-icon stroke-width="1.6" />
+            <Pause data-pause-icon stroke-width="1.6" />
           </button>
           <button
             type="button"
@@ -159,9 +152,7 @@ const layout = layoutGalleryWall(items, 780);
             data-video-restart
             aria-label="Reiniciar video"
           >
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <use href="/contact-icons.svg#rotate-ccw"></use>
-            </svg>
+            <RotateCounterclockwise stroke-width="1.6" />
           </button>
           <input
             type="range"
@@ -183,9 +174,8 @@ const layout = layoutGalleryWall(items, 780);
             aria-label="Video sin audio"
             disabled
           >
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <use href="/contact-icons.svg#volume-x"></use>
-            </svg>
+            <VolumeOff data-muted-icon stroke-width="1.6" />
+            <Volume data-audible-icon stroke-width="1.6" />
           </button>
           <input
             type="range"
@@ -208,9 +198,7 @@ const layout = layoutGalleryWall(items, 780);
             data-previous
             aria-label="Anterior"
           >
-            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-              <use href="/contact-icons.svg#chevron-left"></use>
-            </svg>
+            <ChevronLeft stroke-width="1.6" />
           </button>
           <span data-gallery-position aria-live="polite"></span>
           <button
@@ -219,9 +207,7 @@ const layout = layoutGalleryWall(items, 780);
             data-next
             aria-label="Siguiente"
           >
-            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-              <use href="/contact-icons.svg#chevron-right"></use>
-            </svg>
+            <ChevronRight stroke-width="1.6" />
           </button>
           <button
             class="gallery-media-icon"
@@ -230,18 +216,8 @@ const layout = layoutGalleryWall(items, 780);
             aria-label="Pantalla completa"
             hidden
           >
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <use href="/contact-icons.svg#maximize"></use>
-              <path
-                data-exit-fullscreen
-                d="M4 9h5V4m11 5h-5V4M4 15h5v5m11-5h-5v5"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.6"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              ></path>
-            </svg>
+            <Maximize data-enter-fullscreen stroke-width="1.6" />
+            <Minimize data-exit-fullscreen stroke-width="1.6" />
           </button>
           <form method="dialog">
             <button
@@ -249,9 +225,7 @@ const layout = layoutGalleryWall(items, 780);
               aria-label="Cerrar visor"
               autofocus
             >
-              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                <use href="/contact-icons.svg#x"></use>
-              </svg>
+              <X stroke-width="1.6" />
             </button>
           </form>
         </div>
@@ -415,12 +389,20 @@ const layout = layoutGalleryWall(items, 780);
     pointer-events: none;
   }
 
-  [data-exit-fullscreen],
-  .gallery-dialog-frame:fullscreen [data-video-fullscreen] use {
+  .gallery-dialog-frame :global([data-exit-fullscreen]),
+  .gallery-dialog-frame:fullscreen :global([data-enter-fullscreen]),
+  .viewer-video-controls
+    :global([data-video-play]:not([data-playing]) [data-pause-icon]),
+  .viewer-video-controls
+    :global([data-video-play][data-playing] [data-play-icon]),
+  .viewer-video-controls
+    :global([data-video-mute]:not([data-audible]) [data-audible-icon]),
+  .viewer-video-controls
+    :global([data-video-mute][data-audible] [data-muted-icon]) {
     display: none;
   }
 
-  .gallery-dialog-frame:fullscreen [data-exit-fullscreen] {
+  .gallery-dialog-frame:fullscreen :global([data-exit-fullscreen]) {
     display: inline;
   }
 

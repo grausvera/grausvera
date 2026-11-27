@@ -1,4 +1,7 @@
 ---
+import ExternalLink from "@grausvera/unancha/astro/external-link";
+import Globe from "@grausvera/unancha/astro/globe";
+import Mail from "@grausvera/unancha/astro/mail";
 import { contactGroups, contactLinks } from "../data/contact";
 
 const groups = contactGroups
@@ -27,31 +30,43 @@ const groups = contactGroups
         <li>
           <a href={link.href} target="_blank" rel="noopener noreferrer">
             <span class="contact-link-main">
-              <svg
-                class="contact-icon"
-                width="22"
-                height="22"
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-                focusable="false"
-              >
-                <use href={`/contact-icons.svg#${link.icon}`} />
-              </svg>
+              {link.icon === "mail" ? (
+                <Mail
+                  class="contact-icon"
+                  width="22"
+                  height="22"
+                  stroke-width="1.6"
+                />
+              ) : link.icon === "globe" ? (
+                <Globe
+                  class="contact-icon"
+                  width="22"
+                  height="22"
+                  stroke-width="1.6"
+                />
+              ) : (
+                <svg
+                  class="contact-icon"
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <use href={`/contact-icons.svg#${link.icon}`} />
+                </svg>
+              )}
               <span>
                 <strong>{link.label}</strong>
                 <span class="contact-link-description">{link.description}</span>
               </span>
             </span>
-            <svg
+            <ExternalLink
               class="contact-icon"
               width="22"
               height="22"
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-              focusable="false"
-            >
-              <use href="/contact-icons.svg#external-link" />
-            </svg>
+              stroke-width="1.6"
+            />
             <span class="sr-only"> (se abre en una pestaña nueva)</span>
           </a>
         </li>

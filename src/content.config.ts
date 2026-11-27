@@ -45,6 +45,9 @@ const creations = defineCollection({
     featured: z.boolean(),
     createdAt: z.coerce.date(),
     role: z.string().optional(),
+    npm: z
+      .url({ protocol: /^https$/, hostname: /^www\.npmjs\.com$/ })
+      .optional(),
     relatedProjectIds: z.array(z.string()).default([]),
     gallery: z.array(galleryItem).default([]),
     highlights: z
@@ -60,9 +63,13 @@ const creations = defineCollection({
       .optional(),
     website: z
       .object({
-        path: z.literal("/"),
+        path: z.union([z.literal("/"), z.url({ protocol: /^https$/ })]),
         repository: z.url({ protocol: /^https$/ }).optional(),
         responsive: z.boolean().default(false),
+      })
+      .refine(({ path, responsive }) => !responsive || path === "/", {
+        path: ["responsive"],
+        message: "La vista de dispositivos requiere el sitio de grausvera.",
       })
       .optional(),
     cover: z.object({

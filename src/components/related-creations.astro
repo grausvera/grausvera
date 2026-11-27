@@ -1,4 +1,5 @@
 ---
+import ChevronRight from "@grausvera/unancha/astro/chevron-right";
 import type { CollectionEntry } from "astro:content";
 import { creationTypes } from "../data/creation-types";
 import CreationCover from "./creation-cover.astro";
@@ -40,18 +41,7 @@ const { items, isMainWebsite = false, heading } = Astro.props;
               <p>{data.summary}</p>
             </div>
             <span class="related-piece-action">
-              <svg
-                class="contact-icon"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.6"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                aria-hidden="true"
-              >
-                <path d="m9 6 6 6-6 6" />
-              </svg>
+              <ChevronRight class="contact-icon" stroke-width="1.6" />
               <span class="sr-only">Ver creación</span>
             </span>
           </a>
