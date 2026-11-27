@@ -15,7 +15,7 @@
 <table>
   <tr>
     <td width="320" valign="top">
-      <a href="https://grausvera.vercel.app/">
+      <a href="https://grausvera.com/">
         <picture>
           <source media="(prefers-color-scheme: dark)" srcset="./public/projects/grausvera/cover-dark.svg">
           <img src="./public/projects/grausvera/cover-light.svg" alt="Portada de grausvera" width="300">

@@ -5,7 +5,7 @@ import { defineConfig } from "astro/config";
 export default defineConfig({
   output: "static",
   integrations: [mdx()],
-  site: "https://grausvera.vercel.app",
+  site: "https://grausvera.com",
   // Oculta la barra de desarrollo también dentro de la vista responsive.
   devToolbar: { enabled: false },
 });
