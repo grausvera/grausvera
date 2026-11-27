@@ -8,12 +8,12 @@ interface Props {
 
 // Genera la vista de dispositivos solo para las fichas que la habilitan explícitamente.
 export async function getStaticPaths() {
-  const websites = await getCollection(
+  const creations = await getCollection(
     "creations",
-    ({ data }) => data.type === "website" && data.website?.responsive === true,
+    ({ data }) => data.website?.responsive === true,
   );
 
-  return websites.map((creation) => ({
+  return creations.map((creation) => ({
     params: { id: creation.id },
     props: { creation },
   }));
@@ -81,6 +81,7 @@ const devices = [
             <iframe
               title={`Vista de ${data.title}`}
               src={data.website?.path}
+              allow="clipboard-write 'src'"
               width="1440"
               height="900"
             ></iframe>
